@@ -1,38 +1,117 @@
 .App {
+  margin: 20px auto;
+  font-size: 17px;
+  font-family: "Ubuntu", sans-serif;
   text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+  background: linear-gradient(
+    20deg,
+    hsl(0, 100%, 71%),
+    hsla(212, 98%, 53%, 0.603)
+  );
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  width: 90%;
+  padding: 20px 0;
+  border-radius: 15px;
+  box-shadow: rgb(0 0 0 / 10%) 1px 1px 4px 1px, rgb(0 0 0 / 6%) 1px 4px 4px 2px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.pwd-and-copy {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.password-template {
+  font-family: "Rubik", sans-serif;
+  color: hsl(248, 79%, 9%);
+  opacity: 0.2;
+  margin: 15px auto;
+  width: 90%;
+}
+.enter-len {
+  margin-bottom: -5px;
+}
+.check-and-label {
+  margin-right: 15px;
+}
+.generated-password {
+  font-family: "Rubik", sans-serif;
+  color: hsl(248, 79%, 9%);
+  margin: 15px auto;
+  width: 90%;
+  overflow-wrap: anywhere;
+}
+.copy-button {
+  align-self: center;
+  background: transparent;
+  margin-right: 10px;
+  padding: 2px 4px;
+  height: 35px;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.5) 0px 1px 2px 0px;
+}
+.copy-button:hover {
+  box-shadow: inset rgb(0 0 0 / 50%) 1px 2px 1px 0px,
+    rgb(0 0 0 / 50%) 0px 1px 2px 0px;
+}
+.button-generator {
+  margin-top: 20px;
+  width: 120px;
+  height: 50px;
+  font-size: 15px;
   color: white;
+  border: 0;
+  border-radius: 30px;
+  background: linear-gradient(30deg, hsl(244, 96%, 11%), hsl(0, 0%, 44%));
+  box-shadow: rgb(0 0 0 / 20%) 1px 1px 4px 1px;
+}
+.button-generator:hover {
+  color: hsl(244, 96%, 11%);
+  border: 1px solid hsl(244, 96%, 11%);
+  background: transparent;
 }
 
-.App-link {
-  color: #61dafb;
+.Very-weak {
+  color: hsl(0, 100%, 29%);
+}
+.Weak {
+  color: hsl(0, 100%, 50%);
+}
+.Okay {
+  color: hsl(39, 97%, 42%);
+}
+.Strong {
+  color: hsl(120, 100%, 31%);
+}
+.Very-strong {
+  color: hsl(120, 93%, 16%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.pwd-strength {
+  display: flex;
+  justify-content: center;
+}
+.icon {
+  margin: 20px 0 0 5px;
+}
+
+@media screen and (max-width: 550px) {
+  .enter-len {
+    margin-bottom: -10px;
   }
-  to {
-    transform: rotate(360deg);
+  .check-and-label {
+    display: block;
+    margin-top: 15px;
+  }
+  .button-generator {
+    margin-top: 3px;
+    width: 120px;
+    height: 50px;
+    font-size: 15px;
+    color: white;
+    border: 0;
+    border-radius: 30px;
+    background: linear-gradient(30deg, hsl(244, 96%, 11%), hsl(0, 0%, 44%));
+    box-shadow: rgb(0 0 0 / 20%) 1px 1px 4px 1px;
   }
 }

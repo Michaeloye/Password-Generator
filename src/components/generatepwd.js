@@ -2,56 +2,65 @@ import shuffle from "./shuffle.js";
 import getRndInteger from "./getRndInteger";
 
 function generatepwd(length, lowercase, uppercase, number, specialcharacter) {
-  let lowerCase = "abcdefghijklmnopqrstuvwxyz";
-  let upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let digit = "0123456789";
-  let specialCharacter = "`~!@#$%^&*()_-=+[]{};:,.<>?/|";
+  const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+  const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const digit = "0123456789";
+  const specialCharacter = "`~!@#\"'$%^&*()_-=+[]{};:,.<>?/|";
   let result = "";
 
-  if (lowercase && !uppercase && !number && !specialcharacter) {
-    for (let i = 0; i < length; i++) {
-      result += lowerCase.charAt(getRndInteger(0, lowerCase.length - 1));
+  // make all arguments other than length an object value
+  const choices = {
+    lowercase,
+    uppercase,
+    number,
+    specialcharacter,
+  };
+
+  const asArray = Object.entries(choices);
+
+  const filtered = asArray.filter(([key, value]) => value);
+  // returns filtered list with elements in the form [key, value]; where value is true
+
+  // Convert the key/value array back to an object:
+  //  { key: value, ...}
+  // `{ name: 'Luke Skywalker', title: 'Jedi Knight' }`
+  const filterChoice = Object.fromEntries(filtered);
+  const filterChoiceKeys = Object.keys(filterChoice);
+
+  // varibles for the loop
+  let j = 0;
+  let trace = 0;
+
+  for (let i of filterChoiceKeys) {
+    // normally if the length given by the user is used if it will loop by n times, but if it loops
+    // by the length/the number of checked boxes, the result will be equal to the total length chosen by the user
+    // e.g 10/2, loops 5 times with each respective choice appended 5 times, making a total of 10;
+
+    let rand = getRndInteger(1, length / filterChoiceKeys.length);
+    j += 1;
+
+    for (
+      let k = 0;
+      k < (j !== filterChoiceKeys.length ? rand : length - trace);
+      k++
+    ) {
+      if (i === "lowercase") {
+        result += lowerCase.charAt(getRndInteger(0, lowerCase.length - 1));
+      } else if (i === "uppercase") {
+        result += upperCase.charAt(getRndInteger(0, upperCase.length - 1));
+      } else if (i === "number") {
+        result += digit.charAt(getRndInteger(0, digit.length - 1));
+      } else if (i === "specialcharacter") {
+        result += specialCharacter.charAt(
+          getRndInteger(0, specialCharacter.length - 1)
+        );
+      }
     }
-  } else if (lowercase && uppercase && !number && !specialcharacter) {
-    let charLength = getRndInteger(1, length / 2);
-    length = length - charLength;
-    for (let i = 0; i < charLength; i++) {
-      result += lowerCase.charAt(getRndInteger(0, lowerCase.length - 1));
-    }
-    for (let i = 0; i < length; i++) {
-      result += upperCase.charAt(getRndInteger(0, upperCase.length - 1));
-    }
-  } else if (lowercase && uppercase && number && !specialcharacter) {
-    let charLength1 = getRndInteger(1, length / 3);
-    let charLength2 = getRndInteger(1, length / 3);
-    length = length - (charLength1 + charLength2);
-    for (let i = 0; i < charLength1; i++) {
-      result += lowerCase.charAt(getRndInteger(0, lowerCase.length - 1));
-    }
-    for (let i = 0; i < charLength2; i++) {
-      result += upperCase.charAt(getRndInteger(0, upperCase.length - 1));
-    }
-    for (let i = 0; i < length; i++) {
-      result += digit.charAt(getRndInteger(0, digit.length - 1));
-    }
-  } else if (lowercase && uppercase && number && specialcharacter) {
-    let charLength1 = getRndInteger(1, length / 4);
-    let charLength2 = getRndInteger(1, length / 4);
-    let charLength3 = getRndInteger(1, length / 4);
-    length = length - (charLength1 + charLength2 + charLength3);
-    for (let i = 0; i < charLength1; i++) {
-      result += lowerCase.charAt(getRndInteger(0, lowerCase.length - 1));
-    }
-    for (let i = 0; i < charLength2; i++) {
-      result += upperCase.charAt(getRndInteger(0, upperCase.length - 1));
-    }
-    for (let i = 0; i < charLength3; i++) {
-      result += digit.charAt(getRndInteger(0, digit.length - 1));
-    }
-    for (let i = 0; i < length; i++) {
-      result += specialCharacter.charAt(getRndInteger(0, specialCharacter.length - 1))
-    }
-  } else return "asdf";
+    // trace needs to start counting at the end of the first loop
+    trace += rand;
+  }
+  if (length / filterChoiceKeys.length < 1)
+    return shuffle(result).substring(0, length);
 
   return shuffle(result);
 }
