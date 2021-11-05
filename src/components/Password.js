@@ -174,11 +174,11 @@ class Password extends Component {
         <div className="pwd-strength">
           <h3>
             Password Strength:{" "}
-            <span className={this.state.colorSig}>
+            {this.state.password && <span className={this.state.colorSig}>
               {this.state.passwordStrength}
-            </span>
+            </span>}
           </h3>{" "}
-          <span className="icon">{this.state.icon}</span>
+          {this.state.password && <span className="icon">{this.state.icon}</span>}
         </div>
       </>
     );
