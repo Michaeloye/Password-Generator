@@ -17,7 +17,7 @@ class Password extends Component {
     super(props);
 
     this.state = {
-      password: "Password is generated Here",
+      password: "Pasord is generated Here",
       length: 10,
       lowercase: false,
       uppercase: false,
